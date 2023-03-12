@@ -10,15 +10,20 @@ messages = [
 
 
 def respond(chat_history, message):
-    messages.append({"role": "user", "content": message})
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages
-    )
-    res_text = response['choices'][0]['message']['content']
-    messages.append({"role": "system", "content": res_text})
-    print(res_text)
-    return chat_history + [[message, res_text]]
+    try:
+        messages.append({"role": "user", "content": message})
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages
+        )
+        res_text = response['choices'][0]['message']['content']
+        messages.append({"role": "system", "content": res_text})
+        print(res_text)
+        return chat_history + [[message, res_text]]
+    except Exception as e:
+        print(e)
+        messages.clear()
+        return chat_history + [[message, "Error: " + str(e)]]
 
 
 with gr.Blocks() as demo:
