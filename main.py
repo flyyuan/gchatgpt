@@ -11,6 +11,7 @@ messages = [
 
 def respond(chat_history, message):
     try:
+        print('message',message)
         messages.append({"role": "user", "content": message})
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -18,7 +19,7 @@ def respond(chat_history, message):
         )
         res_text = response['choices'][0]['message']['content']
         messages.append({"role": "system", "content": res_text})
-        print(res_text)
+        print('res_text',res_text)
         return chat_history + [[message, res_text]]
     except Exception as e:
         print(e)
