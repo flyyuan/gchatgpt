@@ -43,4 +43,4 @@ with gr.Blocks(css="footer {visibility: hidden}"
     submit_btn.click(reset_textbox, [], [user_input])
 
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=6861, share=False)
+    demo.launch(server_name="0.0.0.0", server_port=6860, share=False)
