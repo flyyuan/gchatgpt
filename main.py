@@ -26,13 +26,14 @@ def respond(chat_history, message):
         return chat_history + [[message, "Error: " + str(e)]]
 
 
-with gr.Blocks() as demo:
+with gr.Blocks(css="footer {visibility: hidden}"
+                   "#component-3{background: #1aad19;color: #fff;}") as demo:
     chatbot = gr.Chatbot()
     msg = gr.Textbox()
-    clear = gr.Button("Clear")
+    submit = gr.Button("发送")
 
     msg.submit(respond, [chatbot, msg], chatbot, scroll_to_output=True, show_progress=True)
-    clear.click(lambda: None, None, chatbot, queue=False)
+    submit.click(respond, [chatbot, msg], chatbot, queue=False)
 
 if __name__ == "__main__":
     demo.launch(server_name="0.0.0.0", server_port=6860, share=False)
